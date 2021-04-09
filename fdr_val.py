@@ -319,12 +319,20 @@ def main():
     path_pdb = args.input_pdb
     path_conf_map = args.input_map
 
-    if args.prune:
+    if (args.prune and args.valCA):
+        validate_backbone(path_pdb,path_conf_map)
+        prune_res(path_pdb,path_conf_map)
+        validate_CAs(path_pdb,path_conf_map)
+    elif args.prune:
+        validate_backbone(path_pdb,path_conf_map)
         prune_res(path_pdb,path_conf_map)
     elif args.valCA:
+        validate_backbone(path_pdb,path_conf_map)
         validate_CAs(path_pdb,path_conf_map)
+
     else:
         validate_backbone(path_pdb,path_conf_map)
+
 
 if __name__ == '__main__':
     sys.exit(main())
